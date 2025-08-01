@@ -1,8 +1,16 @@
-import type React from "react"
 import "./globals.css"
 import type { Metadata } from "next"
-import { AuthProvider } from "@/contexts/auth-context"
-import { ThemeProvider } from "@/components/theme-provider"
+import { Hind_Siliguri } from "next/font/google"
+import NavBar from "@/components/nav-bar"
+import type React from "react"
+
+// Initialize the Hind Siliguri font
+const hindSiliguri = Hind_Siliguri({
+  weight: ["400", "600", "700"],
+  subsets: ["bengali"],
+  display: "swap",
+  variable: "--font-hind-siliguri",
+})
 
 export const metadata: Metadata = {
   title: "জ্ঞান জয় - শিক্ষামূলক গেম",
@@ -16,18 +24,13 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="bn">
+    <html lang="bn" className={hindSiliguri.variable}>
       <head>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&display=swap"
-          rel="stylesheet"
-        />
       </head>
-      <body style={{ fontFamily: "'Hind Siliguri', sans-serif" }}>
-        <ThemeProvider attribute="class" defaultTheme="light">
-          <AuthProvider>{children}</AuthProvider>
-        </ThemeProvider>
+      <body className={hindSiliguri.className}>
+        <NavBar />
+        {children}
       </body>
     </html>
   )
